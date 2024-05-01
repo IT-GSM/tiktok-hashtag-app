@@ -26,7 +26,8 @@ class HashInfo:
             sources = [''.join(hashname) for hashname in hashtag_name] 
             for source in sources:
                 HashInfo.hashkey = source
-            # print(hash_sources)         
+                # print(HashInfo.hashkey)                   
+
                 await api.create_sessions(ms_tokens=[ms_token,ms_token1,ms_token2], num_sessions=1, sleep_after=3,headless=False)
                         # trending = api.hashtag(name=hashtag)
                 tag = api.hashtag(name=HashInfo.hashkey)
@@ -76,9 +77,20 @@ class HashInfo:
                             #       hash_contents_desc,author_id,author_nickname,author_uniqueId,author_diggCount,author_followerCount,
                             #       author_followingCount,author_friendCount,author_heartCount,author_heart,author_videoCount,
                             #       stats_collectCount,stats_commentCount,stats_diggCount,stats_playCount,stats_shareCount,hash_video_url)
-                            
+                            # Perform the query
+                            results = app.db.session.query(app.TikTokHashKey.id).filter(app.TikTokHashKey.hash_name == HashInfo.hashkey).all()
+
+                            ids = [row.id for row in results]
+                            # Ensure there is at least one ID in the list
+                            if ids:
+                                hash_id = int(ids[0])  # Convert the first ID to an integer
+                                # print(hash_id)
+                            else:
+                                print("No IDs found")
+
                             hashtag_video = app.TikTokVideosInfo(                        
                                     # hash_name = hashtag_name,
+                                    s_id = hash_id,
                                     video_id = hash_video_id,
                                     source_id = author_id,
                                     video_createtime = datetime.utcfromtimestamp(hash_video_createTime),
@@ -164,6 +176,7 @@ class HashInfo:
                                     app.db.session.rollback()
                             else:
                                     update_hashtag_video = update(app.TikTokVideosInfo).where(app.TikTokVideosInfo.video_id  == hash_video_id).values(
+                                    s_id = hash_id,
                                     video_id = hash_video_id,
                                     source_id = author_id,
                                     video_createtime = datetime.utcfromtimestamp(hash_video_createTime),
