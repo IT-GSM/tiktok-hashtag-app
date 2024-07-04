@@ -170,7 +170,7 @@ class HashInfo:
                                     app.db.session.execute(insert_allcontent)
                                     print("Added content id values : {} for network id 5".format(ids))
 
-                                    app.db.session.close()                            
+                                    # app.db.session.close()                            
                                 except Exception as e:
                                     print(f"Error updating data: {e}")
                                     app.db.session.rollback()
@@ -309,7 +309,9 @@ if __name__ == "__main__":
     # else:
     #     print("The list 'sources' is empty.")
     
-    #sources = ["စစ်မှုထမ်း"]
+    #sources = ["ဝင်းနိမ္မိတာရုံ"]
+    source_name = input("Enter hash name : ")
+    sources = [source_name]
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete((HashInfo.get_hashtag_videos(sources)))
