@@ -15,7 +15,7 @@ ms_token2 = "tg-gfxTNY1vFk8aX074Bx_fBpvBnQ3n0tiXc1CQsYIVVc0vJkVOeRTUrM62hlDcO_87
 ms_token1 = "HB08JRnY9yq0ZOJNvaxxC_moJSoheE7wfRm1w-dOfiFruZnlkpgGFGSTMX_tHxLZDKS6WRekU4XGZULn3sAPhWzdu0liyU7k-StDAmQeQyzoC2TQLAHAT2tfQJnS"
 
 #database_url = "postgresql://postgres:admin@localhost:5432/dbtiktok"
-database_url = "postgresql://fbs:yah7WUy1Oi8G@172.32.253.129:5432/fbs"
+database_url = "postgresql://fbs:yah7WUy1Oi8G@192.168.11.202:5432/fbs"
 engine = create_engine(database_url)
 
 class HashInfo:  
