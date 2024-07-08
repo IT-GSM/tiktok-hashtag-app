@@ -22,7 +22,8 @@ class HashInfo:
     hashkey = []
     async def get_hashtag_videos(hashtag_name):       
         hash_out_data = []
-        async with TikTokApi() as api:  
+        async with TikTokApi() as api:
+
             sources = [''.join(hashname) for hashname in hashtag_name] 
             for source in sources:
                 HashInfo.hashkey = source
@@ -300,7 +301,7 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
                         
-    all_hashtag = session.query(users).with_entities(app.TikTokHashKey.hash_name).all()
+    all_hashtag = session.query(users).with_entities(app.TikTokHashKey.hash_name).filter(app.TikTokHashKey.hash_check == True).all()
     rand_hash = random.sample(all_hashtag,5)
     sources = [''.join(user) for user in rand_hash] 
     print(sources)
@@ -310,8 +311,8 @@ if __name__ == "__main__":
     #     print("The list 'sources' is empty.")
     
     #sources = ["ဝင်းနိမ္မိတာရုံ"]
-    source_name = input("Enter hash name : ")
-    sources = [source_name]
+    #source_name = input("Enter hash name : ")
+    #sources = [source_name]
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete((HashInfo.get_hashtag_videos(sources)))
